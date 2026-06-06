@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function WhatsApp() {
-  const url = "https://wa.me/447000000000?text=Hi%20Boston%20Services%2C%20I%27d%20like%20a%20quote.";
+  const url = "https://wa.me/447578511022?text=Hi%20Boston%20Services%2C%20I%27d%20like%20a%20quote.";
   return (
     <a
       href={url}
