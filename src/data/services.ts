@@ -37,7 +37,7 @@ export async function fetchServices(): Promise<ServiceDetail[]> {
   
   return data.map((s: any) => ({
     id: s.slug,
-    image: s.image ? `${API_BASE}${s.image}` : serviceImageMap[s.slug],
+    image: s.image || serviceImageMap[s.slug],
     title: s.title,
     desc: s.desc,
     fullDesc: s.full_desc,
@@ -55,7 +55,7 @@ export async function fetchService(slug: string): Promise<ServiceDetail> {
   
   return {
     id: s.slug,
-    image: s.image ? `${API_BASE}${s.image}` : serviceImageMap[s.slug],
+    image: s.image || serviceImageMap[s.slug],
     title: s.title,
     desc: s.desc,
     fullDesc: s.full_desc,

@@ -152,7 +152,7 @@ function ServicesAdminPage() {
                 {/* Card Image Area */}
                 <div className="h-32 bg-gray-50 flex items-center justify-center border-b border-gray-100 p-6 relative overflow-hidden group-hover:bg-gray-100/50 transition-colors">
                   <div className="w-20 h-20 bg-white shadow-sm rounded-2xl flex items-center justify-center p-3 border border-gray-100 relative z-10 group-hover:scale-105 transition-transform">
-                    <img src={service.image ? `${import.meta.env.VITE_API_URL || "http://localhost:8000"}${service.image}` : serviceImageMap[service.slug]} alt={service.title} className="w-full h-full object-contain" />
+                    <img src={service.image || serviceImageMap[service.slug]} alt={service.title} className="w-full h-full object-contain" />
                   </div>
                   {/* Decorative background circle */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/5 rounded-full blur-2xl" />
