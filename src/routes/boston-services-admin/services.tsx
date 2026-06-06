@@ -20,6 +20,9 @@ function ServicesAdminPage() {
     title: "",
     desc: "",
     full_desc: "",
+    features: "",
+    why_choose_us: "",
+    conclusion: "",
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -44,6 +47,9 @@ function ServicesAdminPage() {
         if (!isEdit) body.append('slug', formData.slug);
         body.append('desc', formData.desc);
         body.append('full_desc', formData.full_desc);
+        body.append('features', formData.features);
+        body.append('why_choose_us', formData.why_choose_us);
+        body.append('conclusion', formData.conclusion);
         body.append('image', imageFile);
       } else {
         body = JSON.stringify({
@@ -51,6 +57,9 @@ function ServicesAdminPage() {
           ...(!isEdit && { slug: formData.slug }),
           desc: formData.desc,
           full_desc: formData.full_desc,
+          features: formData.features,
+          why_choose_us: formData.why_choose_us,
+          conclusion: formData.conclusion,
         });
       }
 
@@ -83,10 +92,13 @@ function ServicesAdminPage() {
         title: service.title,
         desc: service.desc,
         full_desc: service.full_desc,
+        features: service.features || "",
+        why_choose_us: service.why_choose_us || "",
+        conclusion: service.conclusion || "",
       });
     } else {
       setEditingService(null);
-      setFormData({ slug: "", title: "", desc: "", full_desc: "" });
+      setFormData({ slug: "", title: "", desc: "", full_desc: "", features: "", why_choose_us: "", conclusion: "" });
     }
     setImageFile(null);
     setIsModalOpen(true);
@@ -96,7 +108,7 @@ function ServicesAdminPage() {
     setIsModalOpen(false);
     setEditingService(null);
     setImageFile(null);
-    setFormData({ slug: "", title: "", desc: "", full_desc: "" });
+    setFormData({ slug: "", title: "", desc: "", full_desc: "", features: "", why_choose_us: "", conclusion: "" });
   };
 
   return (
@@ -262,6 +274,39 @@ function ServicesAdminPage() {
                     onChange={(e) => setFormData({...formData, full_desc: e.target.value})}
                     rows={6}
                     placeholder="Comprehensive details for the dedicated page..."
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Features (one per line)</label>
+                  <textarea 
+                    value={formData.features}
+                    onChange={(e) => setFormData({...formData, features: e.target.value})}
+                    rows={4}
+                    placeholder="e.g. 24/7 Support&#10;Free estimates&#10;Certified professionals"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Why Choose Us (one per line)</label>
+                  <textarea 
+                    value={formData.why_choose_us}
+                    onChange={(e) => setFormData({...formData, why_choose_us: e.target.value})}
+                    rows={4}
+                    placeholder="e.g. 15 years experience&#10;Fully insured&#10;Guaranteed work"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Conclusion</label>
+                  <textarea 
+                    value={formData.conclusion}
+                    onChange={(e) => setFormData({...formData, conclusion: e.target.value})}
+                    rows={3}
+                    placeholder="Closing statement..."
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium resize-none"
                   />
                 </div>
