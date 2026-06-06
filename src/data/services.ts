@@ -30,13 +30,14 @@ export const serviceImageMap: Record<string, string> = {
 };
 
 export async function fetchServices(): Promise<ServiceDetail[]> {
-  const res = await fetch("http://localhost:8000/api/services/");
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+  const res = await fetch(`${API_BASE}/api/services/`);
   if (!res.ok) throw new Error("Failed to fetch services");
   const data = await res.json();
   
   return data.map((s: any) => ({
     id: s.slug,
-    image: s.image ? `http://localhost:8000${s.image}` : serviceImageMap[s.slug],
+    image: s.image ? `${API_BASE}${s.image}` : serviceImageMap[s.slug],
     title: s.title,
     desc: s.desc,
     fullDesc: s.full_desc,
@@ -47,13 +48,14 @@ export async function fetchServices(): Promise<ServiceDetail[]> {
 }
 
 export async function fetchService(slug: string): Promise<ServiceDetail> {
-  const res = await fetch(`http://localhost:8000/api/services/${slug}/`);
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+  const res = await fetch(`${API_BASE}/api/services/${slug}/`);
   if (!res.ok) throw new Error("Failed to fetch service");
   const s = await res.json();
   
   return {
     id: s.slug,
-    image: s.image ? `http://localhost:8000${s.image}` : serviceImageMap[s.slug],
+    image: s.image ? `${API_BASE}${s.image}` : serviceImageMap[s.slug],
     title: s.title,
     desc: s.desc,
     fullDesc: s.full_desc,

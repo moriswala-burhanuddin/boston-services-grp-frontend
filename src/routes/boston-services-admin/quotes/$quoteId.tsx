@@ -228,8 +228,8 @@ function QuoteDetailPage() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {lead.photos.map((photo: any) => (
-                  <a key={photo.id} href={`http://localhost:8000${photo.image}`} target="_blank" rel="noreferrer" className="block relative aspect-square rounded-2xl overflow-hidden border border-gray-100 hover:border-[#ff6b00] transition-colors group shadow-sm hover:shadow-md bg-gray-50">
-                    <img src={`http://localhost:8000${photo.image}`} alt="Lead upload" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <a key={photo.id} href={`${import.meta.env.VITE_API_URL || "http://localhost:8000"}${photo.image}`} target="_blank" rel="noreferrer" className="block relative aspect-square rounded-2xl overflow-hidden border border-gray-100 hover:border-[#ff6b00] transition-colors group shadow-sm hover:shadow-md bg-gray-50">
+                    <img src={`${import.meta.env.VITE_API_URL || "http://localhost:8000"}${photo.image}`} alt="Lead upload" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </a>
                 ))}
               </div>

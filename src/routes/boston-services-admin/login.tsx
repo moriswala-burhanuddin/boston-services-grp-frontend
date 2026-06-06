@@ -28,7 +28,8 @@ function AdminLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8000/api/token/", {
+      const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const res = await fetch(`${API_BASE}/api/token/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
