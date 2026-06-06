@@ -78,7 +78,7 @@ ${description}
         form.reset();
         setSelected([]);
         setFiles([]);
-        setTimeout(() => setSubmitted(false), 5000);
+        setTimeout(() => setSubmitted(false), 10000);
       } else {
         alert("There was an error submitting your request. Please try again.");
       }
@@ -191,9 +191,21 @@ ${description}
               <span>I agree to the privacy policy and consent to being contacted about this quotation.</span>
             </label>
 
-            <button type="submit" className="btn-primary w-full sm:w-auto">
+            <button type="submit" className="btn-primary w-full sm:w-auto" disabled={submitted}>
               {submitted ? "Request sent · thank you" : "Send quote request"}
             </button>
+
+            {submitted && (
+              <div className="mt-6 p-5 bg-green-50 border border-green-200 rounded-2xl text-green-800 text-sm font-medium flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="bg-green-100 p-1.5 rounded-full shrink-0">
+                  <Check className="h-4 w-4 text-green-600" strokeWidth={3} />
+                </div>
+                <div>
+                  <p className="font-bold text-base mb-1">Thank you! We've received your request.</p>
+                  <p className="text-green-700 leading-relaxed">We will review your details and contact you shortly. Please keep an eye on your email inbox <strong className="font-bold">(and check your spam folder just in case)</strong> for our response.</p>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>
