@@ -1,7 +1,6 @@
-import { ShieldCheck, FileText, Clock, MapPin } from "lucide-react";
+import { FileText, Clock, MapPin } from "lucide-react";
 
 const items = [
-  { icon: ShieldCheck, t: "Fully insured", d: "Public liability and professional indemnity on every job." },
   { icon: FileText, t: "UK standards", d: "Work delivered to current UK building and trade regulations." },
   { icon: Clock, t: "Quotes within 24h", d: "Clear itemised pricing with no hidden surprises." },
   { icon: MapPin, t: "Local vetted crews", d: "Reference-checked tradespeople operating across the UK." },
