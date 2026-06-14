@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import logo from "@/assets/final-logo-Photoroom.png";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 
 const links = [
   ["Services", "#services"],
@@ -12,6 +13,8 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +27,40 @@ export function Nav() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setOpen(false);
+
+    const isHash = href.startsWith('#');
+    const targetId = isHash ? href.substring(1) : href;
+
+    if (targetId === 'top') {
+      if (location.pathname !== '/') {
+        navigate({ to: '/' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      navigate({ to: '/', hash: targetId });
+    } else {
+      const el = document.getElementById(targetId);
+      if (el) {
+        const headerOffset = 96; // Adjust based on your header height
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
 
   return (
     <>
@@ -38,7 +75,7 @@ export function Nav() {
           
           {/* Logo - Smooth linear motion from Hero space to Nav space */}
           <div className="flex items-center z-10 origin-left">
-            <a href="#top" className="flex items-center justify-start group">
+            <a href="#top" onClick={(e) => handleNavClick(e, '#top')} className="flex items-center justify-start group">
               <img 
                 src={logo} 
                 alt="BSG Logo" 
@@ -56,6 +93,7 @@ export function Nav() {
             {/* Get Quote CTA Button - Hidden on mobile, visible on tablet/desktop */}
             <a 
               href="#quote" 
+              onClick={(e) => handleNavClick(e, '#quote')}
               className={`hidden sm:flex bg-[#f97316] text-white px-5 py-2.5 md:px-7 md:py-3 rounded-xl text-xs md:text-sm font-black uppercase tracking-widest hover:bg-black transition-all shadow-lg shadow-primary/20 hover:-translate-y-0.5 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
             >
               Get Quote
@@ -95,7 +133,7 @@ export function Nav() {
             <a 
               key={h} 
               href={h} 
-              onClick={() => setOpen(false)} 
+              onClick={(e) => handleNavClick(e, h)} 
               className="text-lg md:text-xl font-bold uppercase tracking-widest text-white hover:text-[#f97316] transition-colors border-b border-white/10 pb-4"
             >
               {l}
@@ -103,7 +141,7 @@ export function Nav() {
           ))}
           <a 
             href="#quote" 
-            onClick={() => setOpen(false)} 
+            onClick={(e) => handleNavClick(e, '#quote')} 
             className="mt-8 bg-[#f97316] text-white text-center py-4 md:py-5 rounded-xl text-sm md:text-base font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-xl hover:-translate-y-1"
           >
             Get a Quote
